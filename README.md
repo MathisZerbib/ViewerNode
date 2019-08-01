@@ -27,3 +27,5 @@ var timer = 3000;
 
 # Run 
 node viewer.js
+
+If you think you're stuck in the console just hit enter
