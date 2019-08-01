@@ -9,7 +9,7 @@ var status = true;
 var views = 100;
 var multiplicator = 1;
 var debit = 4500;
-var url = "https://www.ebay.fr/itm/352661550975";
+var url = "https://www.google.com";
 var timer = 3000; // random 1000 - x
 
 gettingProxies.on('data', function(proxies) {
