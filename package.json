@@ -11,7 +11,7 @@
     "save": "^2.3.3"
   },
   "devDependencies": {
-    "electron": "^3.0.13"
+    "electron": "^7.2.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
