@@ -7,7 +7,7 @@
     "nightmare": "^3.0.1",
     "node-fetch": "^2.3.0",
     "prompt": "^1.0.0",
-    "proxy-lists": "^1.19.0",
+    "proxy-lists": "^1.23.3",
     "save": "^2.3.3"
   },
   "devDependencies": {
