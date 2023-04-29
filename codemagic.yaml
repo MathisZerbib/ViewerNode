@@ -7,5 +7,7 @@ workflows:
     scripts:
       - name: "Build Front-end"
         script: "cd front && flutter build web"
+      - name: "Build Back-end"
+        script: "cd server && npm install && npm run build"
 artifacts:
-  - front/build/**/*.*
+  - front/build/**
