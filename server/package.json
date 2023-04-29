@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "webpack --config webpack.config.js",
+    "build": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
