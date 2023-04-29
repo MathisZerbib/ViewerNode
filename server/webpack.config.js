@@ -7,4 +7,10 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
+  resolve: {
+    fallback: {
+      util: require.resolve("util/"),
+      path: require.resolve("path-browserify"),
+    },
+  },
 };
