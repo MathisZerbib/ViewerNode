@@ -33,6 +33,8 @@
 // app.listen(port, () => {
 //   console.log(`Example app listening at http://localhost:${port}`);
 // });
+const https = require("https");
+const fs = require("fs");
 
 const express = require("express");
 const { Server } = require("ws");
@@ -41,9 +43,18 @@ const viewer = require("./viewer.js");
 let isLaunched = false;
 const PORT = process.env.PORT || 3000;
 
-const server = express()
-  .use((req, res) => res.send("Hi there"))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+const app = express();
+app.get("/", (req, res) => {
+  res.send("Hi there");
+});
+
+const options = {
+  key: fs.readFileSync("./key.pem"),
+  cert: fs.readFileSync("./cert.pem"),
+};
+
+const server = https.createServer(options, app);
+
 const wss = new Server({ server });
 
 wss.on("connection", (ws, req) => {
@@ -76,3 +87,5 @@ async function crawlSite(url) {
   viewer.view(url, debit, timer, multiplicator, views);
   isLaunched = true;
 }
+
+server.listen(PORT, () => console.log(`Listening on ${PORT}`));
