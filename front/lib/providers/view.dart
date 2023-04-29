@@ -71,13 +71,13 @@ class ViewProvider extends ChangeNotifier {
       String url;
       if (kIsWeb) {
         // For web, use a relative URL
-        url = 'ws://viewer-node.onrender.com:3000';
+        url = 'ws://viewer-node.onrender.com:10000';
       } else {
         // For mobile, use a platform-specific IP address
         if (Platform.isAndroid) {
-          url = 'ws://viewer-node.onrender.com:3000'; // For Android emulator
+          url = 'ws://viewer-node.onrender.com:10000'; // For Android emulator
         } else {
-          url = 'ws://viewer-node.onrender.com:3000'; // For iOS simulator
+          url = 'ws://viewer-node.onrender.com:10000'; // For iOS simulator
         }
       }
       channel = WebSocketChannel.connect(Uri.parse(url));
