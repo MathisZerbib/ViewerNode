@@ -27,13 +27,13 @@ class ViewProvider extends ChangeNotifier {
       String url;
       if (kIsWeb) {
         // For web, use a relative URL
-        url = 'ws://viewer-node.onrender:3000';
+        url = 'wss://viewer-node.onrender:3000';
       } else {
         // For mobile, use a platform-specific IP address
         if (Platform.isAndroid) {
-          url = 'ws://viewer-node.onrender:3000'; // For Android emulator
+          url = 'wss://viewer-node.onrender:3000'; // For Android emulator
         } else {
-          url = 'ws://viewer-node.onrender:3000'; // For iOS simulator
+          url = 'wss://viewer-node.onrender:3000'; // For iOS simulator
         }
       }
       channel = WebSocketChannel.connect(Uri.parse(url));
@@ -71,13 +71,13 @@ class ViewProvider extends ChangeNotifier {
       String url;
       if (kIsWeb) {
         // For web, use a relative URL
-        url = 'ws://viewer-node.onrender.com:10000';
+        url = 'wss://viewer-node.onrender.com:10000';
       } else {
         // For mobile, use a platform-specific IP address
         if (Platform.isAndroid) {
-          url = 'ws://viewer-node.onrender.com:10000'; // For Android emulator
+          url = 'wss://viewer-node.onrender.com:10000'; // For Android emulator
         } else {
-          url = 'ws://viewer-node.onrender.com:10000'; // For iOS simulator
+          url = 'wss://viewer-node.onrender.com:10000'; // For iOS simulator
         }
       }
       channel = WebSocketChannel.connect(Uri.parse(url));
