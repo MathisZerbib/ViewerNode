@@ -5,21 +5,23 @@ const PuppeteerExtraPluginProxy = require("puppeteer-extra-plugin-proxy2");
 
 module.exports = {
   view: function (url, debit, timer, multiplicator, views) {
-    const status = true;
+    let status = true;
 
     const ProxyLists = require("proxy-lists");
 
     const options = { countries: ["fr", "ca", "ch", "be"] };
     const gettingProxies = ProxyLists.getProxies(options);
 
-    const P = [];
+    let P = [];
 
-    gettingProxies.on("data", function (proxies) {
+    gettingProxies.on("data", async function (proxies) {
       if (status === true && P.length > views) {
         status = false;
+        console.log("Getviews: " + P.length);
         getviews(P);
       } else if (status === true) {
         P = P.concat(proxies);
+        console.log("Getproxies: " + P.length);
       }
     });
 
@@ -28,14 +30,16 @@ module.exports = {
     }
 
     async function execview(runner, id) {
-      console.log("view with proxy: " + id);
+      console.log("start view with proxy: " + id);
       if (status === true) {
         try {
           await runner
             .launch({
-              headless: true,
-              executablePath: executablePath(),
-              args: ["--ignore-certificate-errors"],
+              headless: false,
+              // executablePath: executablePath(),
+              defaultViewport: null,
+              executablePath: "/Applications/Arc.app/Contents/MacOS/Arc",
+              // args: ["--ignore-certificate-errors"],
             })
             .then(async (browser) => {
               const page = await browser.newPage();
@@ -74,21 +78,39 @@ module.exports = {
       });
     }
 
-    async function getviews(proxies) {
+    function getviews(proxies) {
       var executor = [];
-
       for (let i = 0; i <= proxies.length; i += multiplicator) {
         for (let x = 0; x !== multiplicator; x++) {
-          executor[i + x] = puppeteer.use(
-            PuppeteerExtraPluginProxy({
-              address: proxies[i + x].ipAddress,
-              port: proxies[i + x].port,
-            })
-          );
-          let runner = executor[i + x];
-          execview(runner, i + x);
+          let counter = i + x;
+
+          if (
+            proxies[counter] == undefined ||
+            proxies[counter].ipAddress == undefined ||
+            proxies[counter].port == undefined
+          ) {
+            break;
+          } else {
+            console.log(
+              "Using: " +
+                JSON.stringify(
+                  proxies[counter].ipAddress + ":" + proxies[counter].port
+                )
+            );
+            let ipAddress = JSON.stringify(proxies[counter].ipAddress);
+            let port = JSON.stringify(proxies[counter].port);
+
+            executor[counter] = puppeteer.use(
+              PuppeteerExtraPluginProxy({
+                address: ipAddress,
+                port: port,
+              })
+            );
+            let runner = executor[counter];
+            execview(runner, counter);
+          }
+          sleep(debit);
         }
-        await sleep(debit);
       }
     }
   },

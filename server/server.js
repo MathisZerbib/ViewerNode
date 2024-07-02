@@ -34,6 +34,7 @@
 //   console.log(`Example app listening at http://localhost:${port}`);
 // });
 const https = require("https");
+const http = require("http");
 const fs = require("fs");
 
 const express = require("express");
@@ -49,11 +50,11 @@ app.get("/", (req, res) => {
 });
 
 const options = {
-  key: fs.readFileSync("./key.pem"),
-  cert: fs.readFileSync("./cert.pem"),
+  // key: fs.readFileSync("./key.pem"),
+  // cert: fs.readFileSync("./cert.pem"),
 };
 
-const server = https.createServer(options, app);
+const server = http.createServer(options, app);
 
 const wss = new Server({ server });
 
@@ -80,7 +81,7 @@ wss.on("connection", (ws, req) => {
 
 async function crawlSite(url) {
   console.log(`Crawl Site, url: ${url}`);
-  const views = 100;
+  const views = 2;
   const multiplicator = 1;
   const debit = 32000;
   const timer = 10000;
